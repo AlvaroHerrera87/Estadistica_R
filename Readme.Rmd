@@ -1,3 +1,0 @@
-
-*Apuntes y teoría estadística utilizando el lenguaje R*
-
