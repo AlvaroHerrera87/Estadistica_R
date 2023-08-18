@@ -2,7 +2,7 @@
 title: "Prueba"
 author: "Alvaro Herrera Acosta"
 date: "2023-08-18"
-output: pdf_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
