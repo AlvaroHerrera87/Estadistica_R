@@ -1,2 +1,3 @@
-**Apuntes y teoría estadistica utilizando R**
+
+*Apuntes y teoría estadística utilizando el lenguaje R*
 
