@@ -1,14 +1,2 @@
----
-title: "Readme"
-author: "Alvaro Herrera Acosta"
-date: "2023-08-18"
-output: pdf_document
----
+**Apuntes y teoría estadistica utilizando R**
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## README
-
-Curso de estadística con R.
