@@ -2,7 +2,11 @@
 title: "Tema_1"
 author: "Alvaro Herrera Acosta"
 date: "2023-08-18"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -11,20 +15,115 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Tema 1: ESTADÍSTICA DESCRIPTIVA
 
+### Capítulo 2: Distribuciones de frecuencias
+
+*2.1 Variable estadística*
+
+El investigador trata de captar de la realidad que le rodea una serie de **fenómenos**. Dichos
+fenómenos pueden dar lugar a observaciones de tipo cuantitativo o cualitativo:
+
+Los fenómenos de naturaleza cuantitativa son aquellos cuyas observaciones vienen expresadas en forma cuantitativa: estatura, peso...
+
+Los fenómenos de naturaleza cualitativa son aquellos que no tienen carácter numérico: sexo, estado civil...
+
+Dentro de las variables existen dos tipos: discretas y continuas.
+
+Variable **discreta**: Se define como aquella variable que, entre dos valores próximos, puede tomar a lo sumo un número finito de valores. Por ejemplo, el número de hijos.
+
+Variable **continua**: Es aquella que puede tomar los infinitos valores de un intervalo. Por ejemplo, peso, altura...
+
+*2.2 Frecuencia absoluta y relativa*
+
+Consideremos la siguiente tabla, donde se recogen las rentas percibidas por 20 personas, para la descripción de las mismas:
 
 
+$$\begin{array}{|l|c|c|c|}
+\hline
+Renta(€) & n_i & f_i & Frec.abs.acum(N_i) & Frec.rel.acum_(F_i)    \\ 
+\hline
+\text{901}   & 1   & 1/20    & 1       & 1/20      \\ 
+\text{931}   & 3   & 3/20    & 4       & 4/20      \\ 
+\text{949}   & 2   & 2/20    & 6       & 6/20      \\
+\text{961}   & 3   & 3/20    & 9       & 9/20      \\
+\text{973}   & 5   & 5/20    & 14      & 14/20     \\
+\text{991}   & 1   & 1/20    & 15      & 15/20     \\
+\text{1081}  & 1   & 1/20    & 16      & 16/20     \\
+\text{1117}  & 2   & 2/20    & 18      & 18/20     \\
+\text{1202}  & 1   & 1/20    & 19      & 19/20     \\
+\text{1232}  & 1   & 1/20    & 20 = N  & 20/20 = 1 \\
+\hline
+\  & N = 20   & 1  & - & -  \\
+\hline
+\end{array}$$
 
+**Frecuencia absoluta**: Es el número de veces que se repite cada valor o variable. Se representa con $n_i$. En nuestro ejemplo, $n_5 = 5$, es decir, el valor $x_5$, que es 973 euros, se repite 5 veces.
 
-```{r cars}
-summary(cars)
+**Frecuencia relativa**: Es igual a la frecuencia absoluta dividido por el número total de datos. Se representa por $f_i$.
+
+$$f_i = \frac{n_i}{N}$$
+
+En nuestro ejemplo, $f_5 = \frac{n_5}{N} = \frac{5}{20} = 0,25$
+
+**Frecuencia absoluta acumulada**: Nos dice el número de datos que hay igual al considerado e inferiores a él. Su símbolo es $N_i$.
+
+Así, por ejemplo, $N_7 = 16$ nos dice que valores iguales o inferiores a $x_7 = 1.081$ hay 16.
+
+**Frecuencia relativa acumulada**: Es el resultado de dividir cada frecuencia acumulada por el número total de datos. Se designa por $F_i$
+
+En nuestro ejemplo, $F_7 = \frac{N_7}{N} = \frac{16}{20}$
+
+La **moda** es el nivel o niveles con mayor frecuencia (absoluta o relativa).
+
+*CÓDIGO EN R*
+
+Supongamos que tenemos una variable cualitativa guardada en un vector como el siguiente:
+```{r Ejemplo_1, echo=FALSE}
+x = sample(1:5, size = 12, replace = TRUE) #solo toma 12 valores del 1 al 5 al azar
+x
+
+Respuestas=factor(sample(c("Si", "No"), size = 12, replace = TRUE)) #muestreo aleatorio de los valores sí y no respectivamente. Lo pasamos a factor para trabajar con niveles de un factor
+Respuestas
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Con R, la tabla de FRECUENCIAS ABSOLUTAS de un vector que representa una variable cualitativa se calcula con la función **table()**
+```{r}
+table(x)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+
+table(Respuestas)
+```
+
+Al aplicar table() a un vector obtenemos una tabla unidimensional formada por uan fila con los niveles de la variable y una segunda fila donde, debajo de cada nivel, aparece su frecuencia absoluta en el vector.
+
+
+Con R, la tabla de FRECUENCIAS RELATIVAS de un vector se puede calcular aplicando la función **prop.table()** a su **table**. El resultado vuelve a ser una tabla de contingencia unidimensional.
+
+```{r}
+prop.table(table(x))
+prop.table(table(Respuestas))
+```
+Dados un vector $x$ y un número natural $n$, la instrucción 
+
+<div class="aligncenter">
+``names(which(table(x)==n))``
+</div>
+
+nos da los niveles que tienen frecuencia absoluta $n$ en $x$.
+
+```{r}
+table(x)
+names(which(table(x) == 1))
+```
+
+En particular, por lo tanto,
+<div class="aligncenter">
+``names(which(table(x)==max(table(x))))``
+</div>
+
+nos da los niveles de frecuencia máxima en $x$: su <l class="definition">moda</l>.
+```{r}
+names(which(table(x) == max(table(x))))
+names(which(table(Respuestas) == max(table(Respuestas))))
+```
